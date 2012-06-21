@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:mx="library://ns.adobe.com/flex/mx"
+               xmlns:views="views.*"
+               minWidth="955" minHeight="600" viewSourceURL="srcview/index.html">
+  <fx:Declarations>
+    <!-- Place non-visual elements (e.g., services, value objects) here -->
+  </fx:Declarations>
+  <fx:Script>
+    <![CDATA[
+      import mx.collections.ArrayCollection;
+      
+      import spark.events.IndexChangeEvent;
+      
+      import views.itemrenderers.CalendarDayRenderer;
+      [Bindable] public var testDayData:ArrayCollection = new ArrayCollection([ 
+        {title:"my data title1", dataDate: new Date(2012,05,15)},
+        {title:"my data title2", dataDate: new Date(2012,05,15)},
+        {title:"my data title3", dataDate: new Date(2012,05,15)},
+        {title:"my data title4", dataDate: new Date(2012,05,18)},
+        {title:"my data title5", dataDate: new Date(2012,05,19)},
+        {title:"my data title6", dataDate: new Date(2012,05,20)},
+        {title:"my data title7", dataDate: new Date(2012,05,20)},
+        {title:"my data title8", dataDate: new Date(2012,05,20)},
+        {title:"my data title9", dataDate: new Date(2012,05,20)},
+        {title:"my data title10", dataDate: new Date(2012,6,8)},
+        {title:"my data title10", dataDate: new Date(2012,4,20)},
+        {title:"my data title10", dataDate: new Date(2012,6,4)},
+        {title:"my data title10", dataDate: new Date(2012,4,20)},
+        {title:"my data title10", dataDate: new Date(2012,6,4)},
+        {title:"my data title10", dataDate: new Date(2012,4,20)},
+        {title:"my data title10", dataDate: new Date(2012,6,4)},
+        {title:"my data title10", dataDate: new Date(2012,4,2)},
+        {title:"my data title10", dataDate: new Date(2012,6,1)},
+        {title:"my data title10", dataDate: new Date(2012,4,2)},
+        {title:"my data title10", dataDate: new Date(2012,6,1)},
+      ]);
+      
+      
+      protected function indexChangeHandler(event:IndexChangeEvent):void
+      {
+        // TODO Auto-generated method stub
+        
+      }
+      
+    ]]>
+  </fx:Script>
+  <s:Button/>
+  <s:ButtonBar id="myButtonBar" change="indexChangeHandler(event)"> 
+    <mx:ArrayCollection> 
+      <fx:String>count</fx:String> 
+      <fx:String>list</fx:String> 
+      <fx:String>week</fx:String> 
+      <fx:String>agenda</fx:String>
+      <fx:String>date chooser</fx:String> 
+    </mx:ArrayCollection> 
+  </s:ButtonBar>
+  <mx:ViewStack id="views">
+    <s:NavigatorContent>
+      <views:MyCal selectedDate="{new Date()}" dateFieldName="dataDate" calendarData="{testDayData}" itemRenderer="views.itemrenderers.CalendarDayRenderer"/>  
+    </s:NavigatorContent>
+    <s:NavigatorContent>
+      <views:MyCal selectedDate="{new Date()}" dateFieldName="dataDate" calendarData="{testDayData}" itemRenderer="views.itemrenderers.CalendarDayRenderer"/>  
+    </s:NavigatorContent>
+    <s:NavigatorContent>
+      <views:MyCal selectedDate="{new Date()}" dateFieldName="dataDate" calendarData="{testDayData}" itemRenderer="views.itemrenderers.CalendarDayRenderer"/>  
+    </s:NavigatorContent>
+  </mx:ViewStack>
+</s:Application>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+         xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:views="views.*" initialize="buildCalendarReference()">
+  <fx:Declarations>
+    <mx:DateFormatter id="monthFormatter" formatString="MMM-YYYY" />
+  </fx:Declarations>
+  <fx:Script>
+    <![CDATA[
+      import mx.collections.ArrayCollection;
+      import mx.collections.ArrayList;
+      
+      import views.itemrenderers.CalendarDayRenderer;
+      import views.itemrenderers.CalendarListItemRenderer;
+      
+      [Bindable] public var selectedDate:Date;
+      [Bindable] public var calIndex:ArrayCollection = new ArrayCollection();
+      [Bindable] public var calendarData:ArrayCollection;
+      [Bindable] public var calDayDataHash:Object = {};
+      [Bindable] public var dateFieldName:String;
+      [Bindable] private var _itemRenderer:IFactory;
+      
+      [Bindable] public var firstDayOfWeek:Number;  // used to find the first day of the week for the first day of the month
+      [Bindable] public var lastDayOfMonth:Number;
+      
+      [Bindable] private var weekdays:ArrayCollection = new ArrayCollection(["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]);
+      
+      [Bindable]
+      public function get itemRenderer():IFactory {
+        return _itemRenderer;
+      }
+      
+      public function set itemRenderer(value:IFactory):void {
+        _itemRenderer = value;
+      }
+      
+      public function buildCalendarReference():void {
+        calIndex = new ArrayCollection();
+        setupImportantDates();
+        for(var i:int = 0; i < 42; i++) {
+          var myItem:Object = {index:i};
+          calIndex.addItemAt(myItem,i);
+        }
+        // set days here
+        for(var j:int = 1; j <= lastDayOfMonth; j++) {
+          var tempItem:Object = calIndex.getItemAt(j+firstDayOfWeek-1);
+          tempItem.date = new Date(selectedDate.fullYear,selectedDate.month,j);
+        }
+        prepareCalendarData();
+      }
+      
+      public function setupImportantDates():void {
+        var tempDate:Date = new Date(selectedDate.fullYear, selectedDate.getMonth(),1);
+        firstDayOfWeek = tempDate.day;
+        
+        tempDate = new Date(selectedDate.fullYear, selectedDate.getMonth()+1,0);
+        lastDayOfMonth = tempDate.date;
+      }
+      
+      public function nextMonth():void {
+        selectedDate = new Date(selectedDate.fullYear,selectedDate.month+1,1);
+        buildCalendarReference();
+      }
+      
+      public function prevMonth():void {
+        selectedDate = new Date(selectedDate.fullYear,selectedDate.month-1,1);
+        buildCalendarReference();
+      }
+      
+      public function prepareCalendarData():void {
+        calDayDataHash = {};
+         for each(var calObj:Object in calendarData) {
+           var tempDate:Date = calObj[dateFieldName];
+           if(calDayDataHash[getDateCode(tempDate)]==null) {
+             calDayDataHash[getDateCode(tempDate)] = new Array();
+             calDayDataHash[getDateCode(tempDate)].push(calObj);
+           }
+           else {
+             calDayDataHash[getDateCode(tempDate)].push(calObj);
+           }
+        }
+         mergeData();
+      }
+      
+      public function mergeData():void {
+        for each(var index:Object in calIndex) {
+          if(index.date && calDayDataHash[getDateCode(index.date)]) {
+            index.dayData = calDayDataHash[getDateCode(index.date)];
+          }
+        }
+      }
+      
+      private function getDateCode(date:Date):String {
+        return String(date.fullYear) + String(date.month) + String(date.date);
+      }
+      
+    ]]>
+  </fx:Script>
+  <s:states>
+    <s:State name="default"/>
+    <s:State name="listView"/>
+  </s:states>
+  <s:VGroup gap="0">
+    <s:HGroup width="100%" horizontalAlign="center">
+      <s:Button label="Prev" click="prevMonth()"/>
+      <s:Label text="{monthFormatter.format(selectedDate)}"/>
+      <s:Button label="Next" click="nextMonth()"/>
+    </s:HGroup>
+    <s:DataGroup dataProvider="{weekdays}" itemRenderer="views.itemrenderers.CalHeaderRenderer">
+      <s:layout>
+        <s:TileLayout requestedColumnCount="7" requestedRowCount="1" columnAlign="justifyUsingWidth" horizontalGap="0" verticalGap="0" columnWidth="120" paddingTop="3"/>
+      </s:layout>
+    </s:DataGroup>
+    <s:DataGroup id="calDisplay" dataProvider="{calIndex}" itemRenderer="{itemRenderer}">
+      <s:layout>
+        <s:TileLayout requestedColumnCount="7" requestedRowCount="6" columnAlign="justifyUsingWidth" rowAlign="justifyUsingHeight" horizontalGap="0" verticalGap="0" rowHeight="120" columnWidth="120"/>
+      </s:layout>
+    </s:DataGroup>
+  </s:VGroup>
+</s:Panel>

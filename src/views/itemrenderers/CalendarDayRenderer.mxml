@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+                xmlns:s="library://ns.adobe.com/flex/spark" 
+                xmlns:mx="library://ns.adobe.com/flex/mx" 
+                autoDrawBackground="true" width="120" height="120">
+  <fx:Script>
+    <![CDATA[
+      override public function set data( value:Object ) : void {
+        super.data = value;
+        if(value==null) return;
+        
+        if(value.date && getDateCode(value.date) == getDateCode(new Date())) {
+          dateContainer.setStyle("borderColor","red");
+        }
+        else {
+          dateContainer.setStyle("borderColor","black");
+        }
+      }
+      
+      private function getDateCode(date:Date):String {
+        return String(date.fullYear) + String(date.month) + String(date.date);
+      }
+    ]]>
+  </fx:Script>
+  
+  <s:BorderContainer id="dateContainer" borderStyle="solid" width="120" height="120" backgroundAlpha="0">
+    <s:VGroup>
+      <s:Label text="{data.date==null? '' : data.date.date}"/>  
+      <s:Spacer height="100%"/>
+      <!--<s:Label text="{data.index}"/>-->
+      <s:Label text="{data.dayData == null ? '' : 'Count:' + data.dayData.length}"/>
+    </s:VGroup>
+  </s:BorderContainer>
+</s:ItemRenderer>
