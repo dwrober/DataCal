@@ -4,12 +4,9 @@
                 xmlns:mx="library://ns.adobe.com/flex/mx" 
                 autoDrawBackground="true">
   
-  <s:BorderContainer width="120" borderStyle="solid" height="25">
-    <s:layout>
-      <s:HorizontalLayout horizontalAlign="center" verticalAlign="middle"/>
-    </s:layout>
-    <s:Label text="{data}"/>  
+  <s:BorderContainer borderStyle="solid" height="{this.height}" width="{this.width}">
+	<s:VGroup gap="0" horizontalAlign="center" verticalAlign="middle" height="100%" width="100%">
+		<s:Label text="{data}"/>	
+	</s:VGroup>
   </s:BorderContainer>
-  
-  
 </s:ItemRenderer>

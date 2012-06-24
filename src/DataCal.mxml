@@ -25,46 +25,30 @@
         {title:"my data title8", dataDate: new Date(2012,05,20)},
         {title:"my data title9", dataDate: new Date(2012,05,20)},
         {title:"my data title10", dataDate: new Date(2012,6,8)},
-        {title:"my data title10", dataDate: new Date(2012,4,20)},
-        {title:"my data title10", dataDate: new Date(2012,6,4)},
-        {title:"my data title10", dataDate: new Date(2012,4,20)},
-        {title:"my data title10", dataDate: new Date(2012,6,4)},
-        {title:"my data title10", dataDate: new Date(2012,4,20)},
-        {title:"my data title10", dataDate: new Date(2012,6,4)},
-        {title:"my data title10", dataDate: new Date(2012,4,2)},
-        {title:"my data title10", dataDate: new Date(2012,6,1)},
-        {title:"my data title10", dataDate: new Date(2012,4,2)},
-        {title:"my data title10", dataDate: new Date(2012,6,1)},
+        {title:"my data title11", dataDate: new Date(2012,4,20)},
+        {title:"my data title12", dataDate: new Date(2012,6,4)},
+        {title:"my data title13", dataDate: new Date(2012,4,20)},
+        {title:"my data title14", dataDate: new Date(2012,6,4)},
+        {title:"my data title15", dataDate: new Date(2012,4,20)},
+        {title:"my data title16", dataDate: new Date(2012,6,4)},
+        {title:"my data title17", dataDate: new Date(2012,4,2)},
+        {title:"my data title18", dataDate: new Date(2012,6,1)},
+        {title:"my data title19", dataDate: new Date(2012,4,2)},
+        {title:"my data title20", dataDate: new Date(2012,6,1)},
       ]);
       
       
-      protected function indexChangeHandler(event:IndexChangeEvent):void
-      {
-        // TODO Auto-generated method stub
-        
-      }
-      
     ]]>
   </fx:Script>
-  <s:Button/>
-  <s:ButtonBar id="myButtonBar" change="indexChangeHandler(event)"> 
-    <mx:ArrayCollection> 
-      <fx:String>count</fx:String> 
-      <fx:String>list</fx:String> 
-      <fx:String>week</fx:String> 
-      <fx:String>agenda</fx:String>
-      <fx:String>date chooser</fx:String> 
-    </mx:ArrayCollection> 
-  </s:ButtonBar>
-  <mx:ViewStack id="views">
-    <s:NavigatorContent>
-      <views:MyCal selectedDate="{new Date()}" dateFieldName="dataDate" calendarData="{testDayData}" itemRenderer="views.itemrenderers.CalendarDayRenderer"/>  
-    </s:NavigatorContent>
-    <s:NavigatorContent>
-      <views:MyCal selectedDate="{new Date()}" dateFieldName="dataDate" calendarData="{testDayData}" itemRenderer="views.itemrenderers.CalendarDayRenderer"/>  
-    </s:NavigatorContent>
-    <s:NavigatorContent>
-      <views:MyCal selectedDate="{new Date()}" dateFieldName="dataDate" calendarData="{testDayData}" itemRenderer="views.itemrenderers.CalendarDayRenderer"/>  
+  <mx:ViewStack id="views" width="100%" height="100%">
+    <s:NavigatorContent height="500" width="500">
+  		<!--<s:BorderContainer width="400" height="400" borderColor="red">-->
+			<views:MyCal selectedDate="{new Date()}" 
+					   dateFieldName="dataDate" 
+					   calendarData="{testDayData}" 
+					   itemRenderer="views.itemrenderers.CalendarDayRenderer" 
+					   height="100%" width="100%"/>  
+	  	<!--</s:BorderContainer>-->
     </s:NavigatorContent>
   </mx:ViewStack>
 </s:Application>

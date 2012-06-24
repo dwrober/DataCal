@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
          xmlns:s="library://ns.adobe.com/flex/spark" 
-         xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:views="views.*" initialize="buildCalendarReference()">
+         xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:views="views.*" initialize="buildCalendarReference()" gap="0">
   <fx:Declarations>
     <mx:DateFormatter id="monthFormatter" formatString="MMM-YYYY" />
   </fx:Declarations>
@@ -96,25 +96,32 @@
       
     ]]>
   </fx:Script>
-  <s:states>
-    <s:State name="default"/>
-    <s:State name="listView"/>
-  </s:states>
-  <s:VGroup gap="0">
-    <s:HGroup width="100%" horizontalAlign="center">
-      <s:Button label="Prev" click="prevMonth()"/>
-      <s:Label text="{monthFormatter.format(selectedDate)}"/>
-      <s:Button label="Next" click="nextMonth()"/>
-    </s:HGroup>
-    <s:DataGroup dataProvider="{weekdays}" itemRenderer="views.itemrenderers.CalHeaderRenderer">
-      <s:layout>
-        <s:TileLayout requestedColumnCount="7" requestedRowCount="1" columnAlign="justifyUsingWidth" horizontalGap="0" verticalGap="0" columnWidth="120" paddingTop="3"/>
-      </s:layout>
-    </s:DataGroup>
-    <s:DataGroup id="calDisplay" dataProvider="{calIndex}" itemRenderer="{itemRenderer}">
-      <s:layout>
-        <s:TileLayout requestedColumnCount="7" requestedRowCount="6" columnAlign="justifyUsingWidth" rowAlign="justifyUsingHeight" horizontalGap="0" verticalGap="0" rowHeight="120" columnWidth="120"/>
-      </s:layout>
-    </s:DataGroup>
-  </s:VGroup>
-</s:Panel>
+	<s:HGroup horizontalAlign="center" width="100%">
+		<s:Button label="Prev" click="prevMonth()"/>
+		<s:Label text="{monthFormatter.format(selectedDate)}"/>
+		<s:Button label="Next" click="nextMonth()"/>
+	</s:HGroup>
+	<s:VGroup height="100%" width="100%" gap="10">
+		<s:Group width="100%" height="25">
+			<s:DataGroup dataProvider="{weekdays}" itemRenderer="views.itemrenderers.CalHeaderRenderer" width="100%" height="100%">
+				<s:layout>
+					<s:TileLayout requestedColumnCount="7" 
+								  requestedRowCount="1" 
+								  columnAlign="justifyUsingWidth" rowAlign="justifyUsingHeight" 
+								  horizontalGap="0" verticalGap="0" />
+				</s:layout>
+			</s:DataGroup>
+		</s:Group>
+		<!--<s:Group width="100%" height="100%">
+			<s:DataGroup id="calDisplay" dataProvider="{calIndex}" itemRenderer="{itemRenderer}" width="100%">
+				<s:layout>
+					<s:TileLayout requestedColumnCount="7" 
+							  requestedRowCount="6" 
+							  columnAlign="justifyUsingWidth" 
+							  rowAlign="justifyUsingHeight" 
+							  horizontalGap="0" verticalGap="0"/>
+				</s:layout>
+			</s:DataGroup>	
+		</s:Group>-->
+	</s:VGroup>
+</s:VGroup>

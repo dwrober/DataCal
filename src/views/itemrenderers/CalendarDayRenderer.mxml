@@ -2,7 +2,8 @@
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
                 xmlns:s="library://ns.adobe.com/flex/spark" 
                 xmlns:mx="library://ns.adobe.com/flex/mx" 
-                autoDrawBackground="true" width="120" height="120">
+                autoDrawBackground="true" 
+				height="100%" width="100%">
   <fx:Script>
     <![CDATA[
       override public function set data( value:Object ) : void {
@@ -23,7 +24,7 @@
     ]]>
   </fx:Script>
   
-  <s:BorderContainer id="dateContainer" borderStyle="solid" width="120" height="120" backgroundAlpha="0">
+  <s:BorderContainer id="dateContainer" borderStyle="solid" backgroundAlpha="0" height="{this.width}" width="{this.height}">
     <s:VGroup>
       <s:Label text="{data.date==null? '' : data.date.date}"/>  
       <s:Spacer height="100%"/>
