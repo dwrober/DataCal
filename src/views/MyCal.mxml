@@ -113,7 +113,7 @@
 			</s:DataGroup>
 		</s:Group>
 		<s:Group width="100%" height="100%">
-			<s:DataGroup id="calDisplay" dataProvider="{calIndex}" itemRenderer="{itemRenderer}" width="100%">
+			<s:DataGroup id="calDisplay" dataProvider="{calIndex}" itemRenderer="{itemRenderer}" width="100%" height="100%">
 				<s:layout>
 					<s:TileLayout requestedColumnCount="7" 
 							  requestedRowCount="6" 

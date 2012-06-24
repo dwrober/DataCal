@@ -8,6 +8,7 @@
     <![CDATA[
       import mx.collections.ArrayCollection;
       import mx.events.DragEvent;
+		
       override public function set data( value:Object ) : void {
         super.data = value;
         if(value==null) return;
@@ -18,6 +19,11 @@
         else {
           dateContainer.setStyle("borderColor","black");
         }
+		
+		if(data.dayData && data.dayData.length > 0)
+		{
+			currentState = "hasData";	
+		}
       }
       
       private function getDateCode(date:Date):String {
@@ -26,13 +32,16 @@
       
     ]]>
   </fx:Script>
-  
-  <s:BorderContainer id="dateContainer" borderStyle="solid" backgroundAlpha="0">
-    <s:VGroup paddingBottom="0" paddingTop="0" paddingRight="0" paddingLeft="0" width="100%" height="100%">
+  <s:states>
+	  <s:State name="default"/>
+	  <s:State name="hasData"/>
+  </s:states>
+  <s:BorderContainer id="dateContainer" borderStyle="solid" backgroundAlpha="0" height="{this.height}" width="{this.width}">
+    <s:VGroup paddingBottom="5" paddingTop="5" paddingRight="5" paddingLeft="5" width="100%" height="100%">
       <s:Label text="{data.date==null? '' : data.date.date}"/>  
-      <s:List dataProvider="{data.dayData==null? null : new ArrayCollection(data.dayData)}" 
-              labelField="title" width="100%" height="100%" borderVisible="false" 
-              dragEnabled="true" dropEnabled="true" >
+      <s:List dataProvider="{data.dayData==null? null : new ArrayCollection(data.dayData)}" includeIn="hasData"
+              labelField="title" borderVisible="false"  
+              dragEnabled="true" dropEnabled="true">
       </s:List>
     </s:VGroup>
   </s:BorderContainer>

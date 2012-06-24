@@ -46,7 +46,7 @@
 			<views:MyCal selectedDate="{new Date()}" 
 					   dateFieldName="dataDate" 
 					   calendarData="{testDayData}" 
-					   itemRenderer="views.itemrenderers.CalendarDayRenderer" 
+					   itemRenderer="views.itemrenderers.CalendarListItemRenderer" 
 					   height="100%" width="100%"/>  
 	  	<!--</s:BorderContainer>-->
     </s:NavigatorContent>
